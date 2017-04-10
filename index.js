@@ -2,6 +2,7 @@ var express = require("express");
 var multer = require("multer");
 var path = require("path");
 const fs = require('fs');
+var request = require('request').defaults({ encoding: null });
 
 var app = express();
 
@@ -28,14 +29,23 @@ app.post('/upload', upload.single('fileupload-input'), function(req, res, next) 
 app.post('/pictures', function(req, res) {
     var images;
     fs.readdir(path.join(__dirname, 'uploads'), function(err, files) {
-        images = files.map(function(file) {
+        images = files.map(function(file) {            
             return file;
         });
-
-        res.send(images);
-    })
+        images.forEach( (file, i) => {
+            res.write( '<img src="' + "./uploads" + "/" + file + '"' + 'data-i="' + i + '"' + 'class="img-thumbnail"/>' );
+        });
+        res.end();
+        
+    });
 });
+
+
 
 app.listen(3000, function() {
     console.log("Server is working on http://localhost:3000/");
 });
+
+var livereload = require('livereload');
+var server = livereload.createServer();
+server.watch(__dirname + "/public");

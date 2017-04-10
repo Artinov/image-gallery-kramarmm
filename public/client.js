@@ -1,3 +1,7 @@
+var renderImage = function(res) {
+    $( 'body' ).append(res).addClass("img-circle")
+}
+
 var getImageArr = function() {
     $.ajax({
         url: "/pictures",
@@ -7,6 +11,7 @@ var getImageArr = function() {
         processData: false
     }).then(function(res) {
         console.log(res);
+        renderImage(res);
     });
 }
 
