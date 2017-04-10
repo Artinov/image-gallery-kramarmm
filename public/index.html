@@ -7,13 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Upload file demo</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <form enctype='multipart/form-data' action="/upload" method="POST" id="uploadForm">
-        <input type="file" name="fileupload-input" /> <br/>
-        <button type="submit">Upload</button>
-    </form>
+    <div class="container">
+        <div class="text-center">
+            <form enctype='multipart/form-data' action="/upload" method="POST" id="uploadForm">
+                <span id="ext" class="text-danger transparent">Only ".jpeg", ".jpg" and ".png" are valid extensions</span>
+                <input type="file" name="fileupload-input" /> <br/>
+                <button class="btn btn-primary upload" type="submit">Upload</button>
+                <span id="noChoose" class="text-danger transparent">Please select file</span>
+            </form>
+        </div>
+    <div id="imageContainer"></div>
+    </div>
+
   <script>
         document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
   ':35729/livereload.js?snipver=1"></' + 'script>')

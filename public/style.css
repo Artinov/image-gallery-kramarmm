@@ -1,0 +1,45 @@
+body {
+    margin-top: 10px;
+}
+
+img {
+    width: 170px;
+    margin: 15px;
+}
+
+input {
+    margin: 30px auto 20px auto;
+}
+
+input:focus {
+    outline: none !important;
+}
+
+input:before {
+    content: "Choose file";
+    width: 230px;
+    height: 50px;
+    background-color: #BFF2F7;
+    position: absolute;
+    text-align: center;
+    border: 1px dashed #337AB7;
+    border-radius: 10px;
+    top: 40px;
+    font-size: 2em;
+    padding-top: 3px;
+    cursor: pointer;
+}
+
+input:hover:before {
+    background-color: #2EE6F7;
+}
+
+.upload {
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.transparent {
+    opacity: 0;
+}

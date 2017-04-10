@@ -1,8 +1,8 @@
 var express = require("express");
+var bodyParser = require("body-parser");
 var multer = require("multer");
 var path = require("path");
 const fs = require('fs');
-var request = require('request').defaults({ encoding: null });
 
 var app = express();
 
@@ -26,7 +26,13 @@ app.post('/upload', upload.single('fileupload-input'), function(req, res, next) 
     res.send('ok')
 });
 
+
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.json());
+
 app.post('/pictures', function(req, res) {
+    // empty object here
+    console.log(req.body);
     var images;
     fs.readdir(path.join(__dirname, 'uploads'), function(err, files) {
         images = files.map(function(file) {            
