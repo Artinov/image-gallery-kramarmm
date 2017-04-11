@@ -8,7 +8,7 @@ img {
 }
 
 input {
-    margin: 30px auto 20px auto;
+    margin: 30px auto 10px auto;
 }
 
 input:focus {
@@ -35,7 +35,7 @@ input:hover:before {
 }
 
 .upload {
-    margin: 0 auto;
+    margin: 22px auto;
     display: block;
     margin-bottom: 10px;
 }

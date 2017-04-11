@@ -1,7 +1,7 @@
-var lastImageIndex = "0"; 
+var lastImageIndex = -1; 
 
 var getLastImageIndex = function () {
-    lastImageIndex = $( '#imageContainer' ).children().last().attr("data-i").toString();
+    lastImageIndex = $( '#imageContainer' ).children().last().attr("data-i");
     return lastImageIndex;
 }
 
@@ -12,32 +12,32 @@ var renderImage = function(res) {
 
 var getImageArr = function() {
     $.ajax({
-        url: "/pictures",
+        url: "/echo?message=" + lastImageIndex,
         method: "POST",
         cache: false,
-        contentType: { type: 'application/json'},
+        contentType: false,
         processData: false,
-        // I wanted to send last index of uploaded image to the server,
-        // after to chek if there exist : images[number more than lastImageIndex]
-        // and send only not sended yet pictures. 
-        // but I have empty object in req.body
-        // and duplication all images every time
-
-        // data: { "fileupload-input" : lastImageIndex }
     }).then(function(res) {
         renderImage(res);
     });
 }
 
+
+// start 
 $( document ).ready(getImageArr);
 
 $($('input[type="file"]')).change(function () {
     $('#noChoose').attr("class", "text-danger transparent");
+    $('#choosen').text($('input[type="file"]')[0].files[0].name);
 });
 
+
+
+// upload button
 $('#uploadForm').submit(function(e) {
     e.preventDefault();
 
+    // checking that file is was chosen
     if ( $('input[type="file"]')[0].files.length === 0 ) {
         $('#noChoose').attr("class", "text-danger");
         return;
@@ -45,12 +45,10 @@ $('#uploadForm').submit(function(e) {
         $('#noChoose').attr("class", "text-danger transparent");
     }
 
+    // checking file extension
     var imageName = $('input[type="file"]')[0].files[0].name.split("."),
         imageExt = imageName[imageName.length -1];
-
-    
-    
-    // checking file extension
+   
     var validExt = ["jpg", "jpeg", "png"];
     var checker = false;
 
@@ -75,7 +73,9 @@ $('#uploadForm').submit(function(e) {
         processData: false,
         data: new FormData(jQuery('#uploadForm')[0])
     }).then(function(res) {
-        console.log(res);
+        $('#choosen').text("");
+        $('input[type="file"]').val("");
+        console.log($('input[type="file"]')[0].files[0]);
     });
     
     getImageArr();
